@@ -28,8 +28,19 @@
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
     <script type="text/javascript"
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-    {{HTML::script("scripts/initial.js")}}
-    {{HTML::script("scripts/DeckController.js")}}
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    {{HTML::script("init/initial.js")}}
+    <?php
+    $files = File::allFiles("scripts");
+
+    $paths = [];
+    foreach ($files as $file) {
+        $corrected = str_replace('\\', '/', $file->getPathname());
+        $paths[]=$file->getPathname();
+    }
+    ?>
+    @foreach($paths as $path)
+    {{HTML::script($path)}}
+    @endforeach
 </body>

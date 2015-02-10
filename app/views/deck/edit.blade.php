@@ -5,6 +5,7 @@
     <div class="col-sm-10" ng-cloak  ng-controller="DeckController as deck">
 
         <div class="menu">
+            cards: @{{deck.totalCards()}}
             <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-primary active">
                     <input type="radio" name="options" id="option1" checked> Toggle
@@ -14,11 +15,13 @@
                 </label>
             </div>
             <div class="btn-group" data-toggle="buttons">
-                <input ng-model=deck.filter" type="text">
+                <label>filter <input class="form-control" ng-model="deck.filter" type="text"></label>
             </div>
         </div>
 
-        <div ng-repeat="card in deck.cards" class="row cardRow">
+        <div ng-repeat="card in deck.cards|
+             filter:deck.filter" 
+             class="row cardRow">
             <div class="row">
                 <div class="col-sm-5">
                     <div class="card">
@@ -34,7 +37,7 @@
                     <i ng-click="deck.toggleActive(card)" style="display:inline-block" class="glyphicon glyphicon-pencil"></i>
                 </div>
             </div>
-            <div class="row" ng-show="card.active">
+            <div class="row" ng-show="card.editing">
                 <div class="col-sm-5">
                     <textarea ng-model="card.title" type="text"></textarea>
                 </div>
@@ -43,8 +46,11 @@
                 </div>
             </div>
         </div>
-
-        <div class="btn btn-block btn-default" ng-click="deck.addCard()">add another card</div>
+        
+        <div class="btn btn-block btn-default" ng-click="deck.addCard()">add card</div>
+<!--        <div ng-controller="QuizController as quiz">
+            
+        </div>-->
     </div>
     <div class="col-sm-2">
         <h3>sidebar</h3>
