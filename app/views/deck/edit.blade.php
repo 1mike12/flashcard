@@ -2,10 +2,10 @@
 
 @section("content")
 <div ng-app="myApp" class="row">
-    <div class="col-sm-10" ng-cloak  ng-controller="DeckController as deck">
+    <div class="col-sm-10" ng-cloak  ng-controller="EditController as editCtrl">
 
         <div class="menu">
-            cards: @{{deck.totalCards()}}
+            cards: @{{editCtrl.totalCards()}}
             <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-primary active">
                     <input type="radio" name="options" id="option1" checked> Toggle
@@ -15,12 +15,12 @@
                 </label>
             </div>
             <div class="btn-group" data-toggle="buttons">
-                <label>filter <input class="form-control" ng-model="deck.filter" type="text"></label>
+                <label>filter <input class="form-control" ng-model="editCtrl.filter" type="text"></label>
             </div>
         </div>
 
-        <div ng-repeat="card in deck.cards|
-             filter:deck.filter" 
+        <div ng-repeat="card in editCtrl.deck.cards|
+             filter:editCtrl.filter" 
              class="row cardRow">
             <div class="row">
                 <div class="col-sm-5">
@@ -33,8 +33,8 @@
 
                 </div>
                 <div class="cols-sm-2">
-                    <i ng-click="deck.removeCard(card)" style="display:inline-block" class="glyphicon glyphicon-remove"></i>
-                    <i ng-click="deck.toggleActive(card)" style="display:inline-block" class="glyphicon glyphicon-pencil"></i>
+                    <i ng-click="editCtrl.deck.removeCard(card)" style="display:inline-block" class="glyphicon glyphicon-remove"></i>
+                    <i ng-click="editCtrl.toggleEditing(card)" style="display:inline-block" class="glyphicon glyphicon-pencil"></i>
                 </div>
             </div>
             <div class="row" ng-show="card.editing">
@@ -47,7 +47,7 @@
             </div>
         </div>
         
-        <div class="btn btn-block btn-default" ng-click="deck.addCard()">add card</div>
+        <div class="btn btn-block btn-default" ng-click="editCtrl.deck.newCard()">add card</div>
 <!--        <div ng-controller="QuizController as quiz">
             
         </div>-->
