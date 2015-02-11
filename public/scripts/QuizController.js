@@ -1,31 +1,78 @@
-myApp.controller("EditController", function (DeckFactory) {
+myApp.controller("QuizController", function (DeckFactory) {
     var self = this;
 
     self.deck = DeckFactory;
 
     self.draft = [];
+    self.index;
+
     self.wrong = [];
     self.correct = [];
-    
-    self.currentCard={};
-    
-    self.setup = function(){
-        self.draft= DeckFactory.deck;
-        self.draft=[];
-        self.wrong=[];
-        self.correct=[];
+
+    self.current;
+    self.flipped;
+
+    self.init = function () {
+        self.draft = DeckFactory.cards.slice(0);
+        self.draft = self.shuffleArray(self.draft);
+        self.wrong = [];
+        self.correct = [];
+
+        self.flipped = false;
+        self.index = 0;
+        self.current = self.draft[self.index];
     };
-    
-    self.draw = function () {
-        
+    self.flip = function () {
+        self.flipped = !self.flipped;
+    };
+    self.shuffle = function () {
+        self.shuffleArray(self.draft);
+        self.index = 0;
+        self.current = self.draft[self.index];
     };
 
-    self.markWrong = function (card) {
-        self.wrong.push(card);
+    self.unmarkedCount = function () {
+        var count = 0;
+        var draft = self.draft;
+        for (var i = 0; i < draft.length; i++) {
+            if (draft[i].correct === 0) {
+                count++;
+            }
+        }
+        return count;
+    };
+    
+    self.markCorrect = function(){
+        self.current.correct=1;
+    };
+    
+    self.markIncorrect= function(){
+        self.current.correct=-1;
     };
 
-    self.markCorrect = function (card) {
-        self.correct.push(card);
+    self.goToNextUnmarked = function () {
+        var draft = self.draft;
+        for (var i = 0; i < draft.length; i++) {
+            if (draft[i].correct === 0) {
+                self.index=i;
+                self.current= draft[i];
+                return;
+            }
+        }
+    };
+    self.next = function () {
+        self.index++;
+        self.current = self.draft[self.index];
+        self.flipped = false;
+    };
+    self.previous = function () {
+        self.index--;
+        self.flipped = false;
+        self.current = self.draft[self.index];
+    };
+
+    self.percentCompletion = function () {
+        return Math.floor(((self.unmarkedCount()) / self.draft.length) * 100);
     };
 
     self.shuffleArray = function (array) {
@@ -48,6 +95,6 @@ myApp.controller("EditController", function (DeckFactory) {
 
         return array;
     };
-
+    self.init();
 });
 

@@ -46,7 +46,7 @@ class DeckController extends \BaseController {
      * @return Response
      */
     public function edit($id=1) {
-        return View::make("deck.edit");
+        return View::make("deck.deck");
     }
 
     /**

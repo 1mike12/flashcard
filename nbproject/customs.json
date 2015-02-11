@@ -1,0 +1,8 @@
+{
+    "attributes": {
+        "mathjax-bind": {
+            "context": "div"
+        }
+    },
+    "elements": {}
+}

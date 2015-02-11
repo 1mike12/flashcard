@@ -19,9 +19,9 @@ header{
 }
 
 .card {
--webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
--moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
 
     min-height:100px;
     font: normal 12px/1.5 "Lucida Grande", arial, sans-serif;
@@ -52,9 +52,64 @@ box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
         background-color:#ffffcc;
     }
     padding:15px;
-    
+
     .glyphicon{
         font-size:20px;
         cursor:pointer;
     }
+}
+
+/* entire container, keeps perspective */
+.flip-container {
+    perspective: 1000;
+}
+/* flip the pane when hovered */
+.flip-container.flipped .flipper, .flip-container.hover .flipper {
+    transform: rotateY(180deg);
+}
+
+.flip-container, .front, .back {
+    width: 480px;
+    height: 300px;
+}
+
+/* flip speed goes here */
+.flipper {
+    transition: 0.3s;
+    transform-style: preserve-3d;
+
+    position: relative;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+    backface-visibility: hidden;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* front pane, placed above back */
+.front {
+    z-index: 2;
+    /* for firefox 31 */
+    transform: rotateY(0deg);
+}
+
+/* back, initially hidden pane */
+.back {
+    transform: rotateY(180deg);
+}
+
+.flipHint{
+    position:absolute;
+    bottom:15px;
+    right:15px;
+}
+
+.toggleEdit{
+    position:absolute;
+    top:15px;
+    right:15px;
 }
