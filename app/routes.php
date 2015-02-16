@@ -14,6 +14,10 @@ Route::get('/', function() {
     return View::make('home');
 });
 
+Route::get("test", function(){
+    return View::make("test");
+});
+
 Route::resource('deck', 'DeckController');
 
 Route::get("user/login", "UserController@getLogin");
