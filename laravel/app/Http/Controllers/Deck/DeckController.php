@@ -13,7 +13,7 @@ class DeckController extends Controller {
      * @return Response
      */
     public function index() {
-        return view("deck.list");
+
     }
 
     /**
@@ -41,7 +41,12 @@ class DeckController extends Controller {
      * @return Response
      */
     public function show($id) {
-        //
+        $deck = [
+            ["title" => "Euler's Formula", "text" => 'e^{\\pi i}-1=0'],
+            ["title" => "Expanded Euler's Formula", "text" => 'e^{j\\theta}= cos(\\theta) + jsin(\\theta)'],
+            ["title" => "Baye's Rule", "text" => 'P(A|B)= \\frac{P(B|A) * P(A)}{P(B)}'],
+        ];
+        return $deck;
     }
 
     /**
